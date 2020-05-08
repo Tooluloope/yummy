@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import {BrowserRouter as Router , Switch} from "react-router-dom";
+import {BrowserRouter as Router , Switch, Route} from "react-router-dom";
 import { SignUp } from "./pages/auth/signup";
 import { Login } from "./pages/auth/login";
 import { Home } from "./pages/homepage";
@@ -18,9 +18,12 @@ function App() {
           <UnAuthenticatedRoute path= '/signup'>
             <SignUp />
           </UnAuthenticatedRoute>
-          <AuthenticatedRoute  path= ''>
+          {/* <AuthenticatedRoute  path= ''>
             <Home />
-          </AuthenticatedRoute>
+          </AuthenticatedRoute> */}
+          <Route path='/'>
+            <Home />
+          </Route>
           
         </Switch>
       </Router>
