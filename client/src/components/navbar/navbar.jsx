@@ -29,7 +29,6 @@ export const NavBar = () => {
     };
     const [data, setData] = useState(initialState);
 
-    console.log(state);
 
     
     useEffect(() => {
@@ -133,7 +132,7 @@ export const NavBar = () => {
                     <div className='flex px-2 py-4 justify-between items-center' >
                         <p>Total</p>
                         <div>
-                            <p>$ {state.total}</p>
+                            <p>$ {parseFloat(state.total).toFixed(2)}</p>
                             <p>€ {usdToEuros(state.total)}</p>
                         </div>
 

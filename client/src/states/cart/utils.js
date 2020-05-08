@@ -18,6 +18,7 @@ export const addNewItem = (state, item) => {
         data.items = [...data.items, {...result, amount: 1} ];
     }
     const {items} = data;
+    console.log(items);
     const total = getTotal(items);
     return {items, total};   
 };
@@ -86,7 +87,7 @@ const getTotal = (arr) =>
         
         const {price, amount} = currItem;
         const totalPrice = parseFloat(price).toFixed(2) * amount;
-        return parseFloat(acc + totalPrice).toFixed(2);
+        return parseFloat(acc + totalPrice);
 
     }, deliveryFee);
 
