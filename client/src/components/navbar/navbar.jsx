@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import logo from "../../logo.svg";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { userContext } from "../../states/auth/auth.context";
@@ -67,7 +67,7 @@ export const NavBar = () => {
             <header className='bg-green-600 sm:flex  sm:items-center sm:px-4 sm:py-3 flex-wrap'>
                 <div className='flex justify-between items-center px-4 py-3 flex-grow'>
                     <div>
-                        <img className="h-12" src={logo}  alt="Logo"/>
+                        <img className=" h-12" src={logo}  alt="Logo"/>
                     </div>
                     <div className="flex sm:inline-block">
                         <div onClick = {() => setIsCartOpen(!isCartOpen)} className="flex flex-row cursor-pointer truncate p-2 px-4  rounded">
