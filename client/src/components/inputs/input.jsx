@@ -25,7 +25,7 @@ export const Button = ({value, type, handleClick } ) => {
     );
 };
 
-export const Input = ({name, label, type, icon, onChange, value}) => {
+export const Input = ({name, label, type, icon, onChange, value , ...props}) => {
   
     return(
        
@@ -37,7 +37,7 @@ export const Input = ({name, label, type, icon, onChange, value}) => {
                 </div>
                 <div className="justify-center relative h-12">
                     <label className='text-gray-600 text-lg absolute duration-1000' htmlFor={name}>{label}</label>
-                    <input id={name} onChange={onChange} value = {value} name = {name} type={type} className="input" />
+                    <input {...props} id={name} onChange={onChange} value = {value} name = {name} type={type} className="input" />
                 </div>
             </div>
         </>
@@ -51,7 +51,7 @@ Input.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.oneOf(["text", "number", "password"]),
     icon: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
 };
 
 ButtonAuth.propTypes = {

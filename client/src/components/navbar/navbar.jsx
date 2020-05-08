@@ -13,19 +13,25 @@ export const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(true);
     const [isFormOpen, setIsFormOpen] = useState(false);
-
     const [fullname, setFullname] = useState(false);
-
     const  isAuthenticated  = useAuth();
     const {state: {user}, dispatch} = useContext(userContext);
+    const initialState = {
+        user: {
+            name: "",
+            email: "",
+            address: ""
+        },
+        errors: {},
+        submitted: false
+    };
+    const [data, setData] = useState(initialState);
 
     
     useEffect(() => {
         if (user) {
             setFullname(user.fullname);
         }
-        
-        
     }, [user]);
 
     const Logout = () => {    
@@ -35,8 +41,7 @@ export const NavBar = () => {
     
     };
 
-    const handleClick = () => {
-        console.log("click")
+    const handleCheckOut = () => {
         setIsFormOpen(true)
     }
     const handleSubmit = (e) => {
@@ -44,6 +49,13 @@ export const NavBar = () => {
         setIsFormOpen(false)
         setIsCartOpen(false)
     }
+    const handleChange = event => {
+        const { user } = data;
+        user[event.target.name] = event.target.value;
+        setData({...data, user});
+    };
+
+    const {submitted, errors, user: { name, address, email }} = data;
 
 
     return (
@@ -118,7 +130,7 @@ export const NavBar = () => {
                 </div>
                 
                 <div className="p-4 justify-center flex">
-                    <Button handleClick = {handleClick} value="Checkout $36.66" type='button' />
+                    <Button handleClick = {handleCheckOut} value="Checkout $36.66" type='button' />
                     
                 </div>
             </div>
@@ -132,16 +144,16 @@ export const NavBar = () => {
                     {/* {submitted && <p className='text-green-500 mb-2'>Registered Successfully</p>}
                     {errors && <p className='text-red-500 mb-2'>{errors.message}</p>} */}
 
-                    <Input    name='amount' type='text' label='Amout' icon = 'credit-card' required/>
+                    <Input  readOnly  value = '$ 2000'   name='amount' type='text' label='Amount' icon = 'credit-card'/>
 
-                    <Input      name='fullname' type='text' label='Fullname' icon = 'address-book' required/>
+                    <Input onChange={handleChange} value = {name} name='name' type='text' label='Full Name' icon = 'address-book' required/>
                     
-                    <Input       name='email' type='text' label='Email Address' icon = 'at' required/>
+                    <Input onChange={handleChange}   value = {email}    name='email' type='text' label='Email Address' icon = 'at' required/>
                 
-                    <Input    name='address' type='text' label='Address' icon = 'map-marker' required/>
+                    <Input onChange={handleChange} value = {address}    name='address' type='text' label='Address' icon = 'map-marker' required/>
 
 
-                    <Button handleClick = {handleSubmit} value="Checkout $36.66" type='submit' />
+                    <Button handleClick = {handleSubmit} value="Submit &rarr;" type='submit' />
 
 
                 </form>
