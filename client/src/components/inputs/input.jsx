@@ -11,6 +11,20 @@ export const ButtonAuth = ({value, className, type,handleClick } ) => {
     );
 };
 
+export const Button = ({value, type, handleClick } ) => {
+
+    return(
+        <button onClick={handleClick} type={type} className="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+            hover:bg-green-700 hover:text-green-100 
+            bg-green-100 
+            text-green-700 
+            border duration-200 ease-in-out 
+            border-green-600 transition">{value}
+        </button>
+        
+    );
+};
+
 export const Input = ({name, label, type, icon, onChange, value}) => {
   
     return(
@@ -43,6 +57,12 @@ Input.propTypes = {
 ButtonAuth.propTypes = {
     value: PropTypes.string.isRequired,
     className: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    handleClick: PropTypes.func.isRequired,
+};
+
+Button.propTypes = {
+    value: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     handleClick: PropTypes.func.isRequired,
 };
