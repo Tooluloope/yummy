@@ -86,7 +86,7 @@ const getTotal = (arr) =>
         
         const {price, amount} = currItem;
         const totalPrice = parseFloat(price).toFixed(2) * amount;
-        return acc + totalPrice;
+        return parseFloat(acc + totalPrice).toFixed(2);
 
     }, deliveryFee);
 

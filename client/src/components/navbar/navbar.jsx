@@ -3,15 +3,17 @@ import logo from "../../logo.svg";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { userContext } from "../../states/auth/auth.context";
-import { Input, ButtonAuth, Button } from "../inputs/input";
+import { Input, Button } from "../inputs/input";
 import { CartItem } from "./cart-item";
+import { cartContext } from "../../states/cart/cart";
+import {usdToEuros} from "../../states/cart/utils";
 
 
 
 export const NavBar = () => {
-
+    const { state } = useContext(cartContext);
     const [isOpen, setIsOpen] = useState(false);
-    const [isCartOpen, setIsCartOpen] = useState(true);
+    const [isCartOpen, setIsCartOpen] = useState(false);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [fullname, setFullname] = useState(false);
     const  isAuthenticated  = useAuth();
@@ -26,6 +28,8 @@ export const NavBar = () => {
         submitted: false
     };
     const [data, setData] = useState(initialState);
+
+    console.log(state);
 
     
     useEffect(() => {
@@ -42,20 +46,21 @@ export const NavBar = () => {
     };
 
     const handleCheckOut = () => {
-        setIsFormOpen(true)
-    }
+        setIsFormOpen(true);
+    };
     const handleSubmit = (e) => {
-        e.preventDefault()
-        setIsFormOpen(false)
-        setIsCartOpen(false)
-    }
+        e.preventDefault();
+        setIsFormOpen(false);
+        setIsCartOpen(false);
+    };
     const handleChange = event => {
         const { user } = data;
         user[event.target.name] = event.target.value;
         setData({...data, user});
     };
 
-    const {submitted, errors, user: { name, address, email }} = data;
+    // Remember to take care of {submitted, errors,}
+    const { user: { name, address, email }} = data;
 
 
     return (
@@ -100,7 +105,7 @@ export const NavBar = () => {
 
             </header>
 
-            <div style={{borderLeft: '1px solid black'}} className={ `${isCartOpen ? "trans" : "no-trans "}  h-screen bg-white fixed bg-white z-50 overflow-auto top-0 right-0 w-75 sm:w-100 block transition-transform duration-500 ease-in-out`}>
+            <div style={{borderLeft: "1px solid black"}} className={ `${isCartOpen ? "trans" : "no-trans "}  h-screen bg-white fixed bg-white z-50 overflow-auto top-0 right-0 w-75 sm:w-100 block transition-transform duration-500 ease-in-out`}>
                 <div className=" sm:py-9 py-6 px-4 mb-5 flex justify-between items-center bg-gray-900">
                     <h3 className="text-white uppercase">Shopping Cart</h3>
                     <button className="bg-transparent border-none text-white text-sm flex items-center outline-none" onClick = {() => setIsCartOpen(false)}>
@@ -110,32 +115,38 @@ export const NavBar = () => {
                         </svg>
                     </button>
                 </div>
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                
-                <div className='flex px-2 pt-4 justify-between items-center' >
-                    <p>Delivery</p>
-                    <div>
-                        <p>$ 2000</p>
-                    </div>
+                {state.items.length > 0 ? state.items.map(item => <CartItem key={item.name} item={item} />) :
+                <div>
+                    <i className="fas fa-cart-arrow-down"></i>
+                    <p>No Product in this cart</p>
                 </div>
-                <div className='flex px-2 py-4 justify-between items-center' >
-                    <p>Total</p>
-                    <div>
-                        <p>$ 2000</p>
-                        <p>€ 2000</p>
+                }
+                
+                {state.items.length > 0 ? 
+                (<>
+                    <div className='flex px-2 pt-4 justify-between items-center' >
+                        <p>Delivery</p>
+                        <div>
+                            <p>$ 15</p>
+                        </div>
                     </div>
+                    <div className='flex px-2 py-4 justify-between items-center' >
+                        <p>Total</p>
+                        <div>
+                            <p>$ {state.total}</p>
+                            <p>€ {usdToEuros(state.total)}</p>
+                        </div>
 
-                </div>
-                
-                <div className="p-4 justify-center flex">
-                    <Button handleClick = {handleCheckOut} value="Checkout $36.66" type='button' />
+                    </div>
                     
-                </div>
+                    <div className="p-4 justify-center flex">
+                        <Button handleClick = {handleCheckOut} value={`Checkout $${state.total}`} type='button' />
+                        
+                    </div>
+                </>) : null}
             </div>
             
-            <div style={{borderLeft: '1px solid black'}} className={ `${isFormOpen ? "trans" : "no-trans"} h-screen bg-white fixed bg-white z-50 overflow-auto top-0 right-0 w-75 sm:w-100 block transition-transform duration-500 ease-in-out`}>                
+            <div style={{borderLeft: "1px solid black"}} className={ `${isFormOpen ? "trans" : "no-trans"} h-screen bg-white fixed bg-white z-50 overflow-auto top-0 right-0 w-75 sm:w-100 block transition-transform duration-500 ease-in-out`}>                
                 <div className=" sm:py-9 py-6 px-4 mb-5 flex justify-between items-center bg-gray-900">
                     <h3 onClick = {() => setIsFormOpen(false)} className="text-white uppercase cursor-pointer">&larr; back</h3>
                     

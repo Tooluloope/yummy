@@ -1,16 +1,17 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
+export const CartItem = ({item}) => {
 
-export const CartItem = () => {
-
+    const {name, desc, url, amount, price } = item;
     return(
         <div className="px-2 py-4 flex bg-white hover:bg-gray-100 cursor-pointer border-b border-gray-100" >
-            <div className="p-2 w-12"><img src="https://dummyimage.com/50x50/bababa/0011ff&amp;text=50x50" alt="img product" /></div>
+            <div className="p-2 w-12"><img src={url} alt="img product" /></div>
             <div className="flex-auto text-sm w-32">
-                <div className="font-bold truncate">Product 3</div>
-                <div className="truncate">Product 3 description</div>
+                <div className="font-bold truncate">{name}</div>
+                <div className="truncate">{desc}</div>
                     <div className="text-gray-400 flex">
                     <button className='px-2 bg-green-600 outline-none focus:outline-none mr-2 text-white'> - </button>
-                    <p> Qt: 2</p>
+                    <p> Qt: {amount}</p>
                     <button className='px-2 bg-green-600 outline-none focus:outline-none ml-2 text-white'> + </button>
 
                 </div>
@@ -24,8 +25,12 @@ export const CartItem = () => {
                         <line x1="14" y1="11" x2="14" y2="17"></line>
                     </svg>
                 </div>
-                $12.22
+                ${price}
             </div>
         </div>
-    )
-}
+    );
+};
+
+CartItem.propTypes = {
+    item: PropTypes.object
+};

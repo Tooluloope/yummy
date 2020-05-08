@@ -4,7 +4,7 @@ import {BrowserRouter as Router , Switch, Route} from "react-router-dom";
 import { SignUp } from "./pages/auth/signup";
 import { Login } from "./pages/auth/login";
 import { Home } from "./pages/homepage";
-import { AuthenticatedRoute } from "./components/routes/authenticatedRoutes";
+// import { AuthenticatedRoute } from "./components/routes/authenticatedRoutes";
 import { UnAuthenticatedRoute } from "./components/routes/unauthenticatedRoutes";
 import { Orders } from "./pages/orders";
 
