@@ -6,4 +6,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.trans {
+  transform: none;
+}
+
+.no-trans {
+  transform:matrix(-1, 0, 0, 1, 400, 0);
+}
+
+.nav-trans {
+  transform:matrix(1, 0, 0, 1, 0, 120);
+}
 
