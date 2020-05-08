@@ -74,7 +74,7 @@ export const NavBar = () => {
                             <div></div>
                             <div className="flex flex-row-reverse ml-2 w-full">
                                 <div slot="icon" className="relative">
-                                    <div className="absolute text-xs rounded-full -mt-1 -mr-2 px-1 font-bold top-0 right-0 bg-red-700 text-white">3</div>
+                                    <div className="absolute text-xs rounded-full -mt-1 -mr-2 px-1 font-bold top-0 right-0 bg-red-700 text-white">{state.items.length}</div>
                                     <svg className='feather feather-shopping-cart w-6 h-6 mt-2"block text-white hover:text-white focus:text-white focus:outline-none' xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" >
                                         <circle cx="9" cy="21" r="1"></circle>
                                         <circle cx="20" cy="21" r="1"></circle>
@@ -139,7 +139,7 @@ export const NavBar = () => {
                     </div>
                     
                     <div className="p-4 justify-center flex">
-                        <Button handleClick = {handleCheckOut} value={`Checkout $${state.total}`} type='button' />
+                        <Button handleClick = {handleCheckOut} value={`Checkout $${parseFloat(state.total).toFixed(2)} `} type='button' />
                         
                     </div>
                 </>) : null}
